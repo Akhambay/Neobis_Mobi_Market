@@ -8,3 +8,8 @@ class CustomUser(AbstractUser):
     DOB = models.DateField(null=True, blank=True)
     phone_number = models.CharField(null=True, blank=True, unique=True,
                                     help_text='Contact phone number', max_length=20)
+    profile_image = models.ImageField(
+        default='default.jpg', upload_to='profile_pics')
+
+    def __str__(self):
+        return f'{self.username}'
