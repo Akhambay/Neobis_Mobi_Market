@@ -7,7 +7,7 @@ class Product(models.Model):
     description = models.TextField(max_length=250)
     price = models.IntegerField()
     product_image = models.ImageField(
-        default='default_pic.jpg', upload_to='product_pics')
+        null=True, blank=True, default='default_pic.jpg', upload_to='product_pics')
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 

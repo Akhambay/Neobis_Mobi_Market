@@ -9,7 +9,7 @@ class CustomUser(AbstractUser):
     phone_number = models.CharField(null=True, blank=True, unique=True,
                                     help_text='Contact phone number', max_length=20)
     profile_image = models.ImageField(
-        default='default.jpg', upload_to='profile_pics')
+        null=True, blank=True, default='default.jpg', upload_to='profile_pics')
 
     def __str__(self):
         return f'{self.username}'
