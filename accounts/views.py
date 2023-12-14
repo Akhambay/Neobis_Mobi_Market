@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from rest_framework import generics
+from .models import CustomUser
+from .serializers import ProfileSerializer
 
-# Create your views here.
+
+class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = ProfileSerializer
