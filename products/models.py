@@ -10,6 +10,11 @@ class Product(models.Model):
         null=True, blank=True, default='default_pic.jpg', upload_to='product_pics')
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    liked_by = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name='liked_products', blank=True)
 
     def __str__(self):
         return self.title
+
+    def get_likes_count(self):
+        return self.liked_by.count()

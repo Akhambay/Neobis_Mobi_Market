@@ -62,9 +62,9 @@ class CustomRegisterView(RegisterView):
         subject = 'Verify Your Email'
         message = f'Your verification code is: {verification_code}'
         from_email = 'assyl.akhambay@gmail.com'
-        to_email = user.email
+        recipient_list = user.email
 
-        send_mail(subject, message, from_email, [to_email])
+        send_mail(subject, message, from_email, [recipient_list])
 
         return response
 
