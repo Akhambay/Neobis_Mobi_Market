@@ -51,8 +51,15 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "dj_rest_auth.registration",
     "drf_spectacular",
-
+    'rest_framework_simplejwt',
 ]
+
+AUTHENTICATION_CLASSES = [
+    'dj_rest_auth.authentication.AllAuthJWTAuthentication',
+    'rest_framework_simplejwt.authentication.JWTAuthentication',
+]
+
+REST_USE_JWT = True
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [

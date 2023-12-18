@@ -10,7 +10,8 @@ class CustomUser(AbstractUser):
                                     help_text='Contact phone number', max_length=20)
     profile_image = models.ImageField(
         null=True, blank=True, default='/profile_pics/default.png', upload_to='profile_pics')
-    is_active = models.BooleanField(default=True)
+    user_verified = models.BooleanField(default=False)
+    verification_code = models.CharField(max_length=4, blank=True, null=True)
 
     def __str__(self):
         return f'{self.username}'
