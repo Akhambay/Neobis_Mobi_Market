@@ -1,4 +1,3 @@
-from .serializers import ProfileSerializer
 from dj_rest_auth.registration.views import RegisterView
 from .serializers import CustomRegisterSerializer, CustomUserDetailsSerializer
 from rest_framework import status, generics
@@ -12,7 +11,7 @@ from django.core.mail import send_mail
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 
-
+"""
 class EnterVerificationCodeView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserDetailsSerializer
@@ -22,11 +21,11 @@ class EnterVerificationCodeView(generics.CreateAPIView):
         user = get_object_or_404(
             CustomUser, pk=self.request.user.pk, verification_code=verification_code)
 
-        # Mark the user as verified
         user.user_verified = True
         user.save()
 
         return Response({'detail': 'Profile verified successfully.'}, status=status.HTTP_200_OK)
+"""
 
 
 @api_view(['POST'])
@@ -48,11 +47,6 @@ def enter_verification_code(request):
         return Response({'detail': 'Email verified successfully.'}, status=status.HTTP_200_OK)
 
 
-class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = CustomUser.objects.all()
-    serializer_class = ProfileSerializer
-
-
 class CustomRegisterView(RegisterView):
     serializer_class = CustomRegisterSerializer
 
@@ -60,16 +54,14 @@ class CustomRegisterView(RegisterView):
         response = super().create(request, *args, **kwargs)
         user = CustomUser.objects.get(username=request.data['username'])
 
-        # Generate and save verification code
         verification_code = get_random_string(
             length=4, allowed_chars='1234567890')
         user.verification_code = verification_code
         user.save()
 
-        # Send verification email
         subject = 'Verify Your Email'
         message = f'Your verification code is: {verification_code}'
-        from_email = 'assyl.akhambay@gmail.com'  # Update with your email
+        from_email = 'assyl.akhambay@gmail.com'
         to_email = user.email
 
         send_mail(subject, message, from_email, [to_email])

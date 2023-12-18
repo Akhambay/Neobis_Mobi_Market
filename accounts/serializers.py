@@ -13,16 +13,3 @@ class CustomUserDetailsSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ('pk', 'username', 'email', 'first_name',
                   'last_name', 'DOB', 'phone_number', 'profile_image')
-
-
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = (
-            "id",
-            "first_name",
-            "last_name",
-            "DOB",
-            "phone_number",
-            "profile_image",
-        )
-        model = CustomUser
