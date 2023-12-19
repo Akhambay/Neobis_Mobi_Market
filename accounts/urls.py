@@ -4,7 +4,7 @@ from .views import CustomRegisterView, CustomUserDetailsView, enter_verification
 urlpatterns = [
     path('registration/', CustomRegisterView.as_view(),
          name='custom-registration'),
-    path('user-details/', CustomUserDetailsView.as_view(),
+    path('profile/', CustomUserDetailsView.as_view(),
          name='custom-user-details'),
     path('enter-verification-code/', enter_verification_code,
          name='enter-verification-code'),
