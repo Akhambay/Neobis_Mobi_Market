@@ -10,8 +10,22 @@ from .models import CustomUser
 from django.core.mail import send_mail
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
-from django.http import HttpResponseRedirect
-from django.urls import reverse
+
+"""
+class EnterVerificationCodeView(generics.CreateAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserDetailsSerializer
+
+    def create(self, request, *args, **kwargs):
+        verification_code = request.data.get('verification_code')
+        user = get_object_or_404(
+            CustomUser, pk=self.request.user.pk, verification_code=verification_code)
+
+        user.user_verified = True
+        user.save()
+
+        return Response({'detail': 'Profile verified successfully.'}, status=status.HTTP_200_OK)
+"""
 
 
 @api_view(['POST'])
@@ -51,6 +65,7 @@ class CustomRegisterView(RegisterView):
         recipient_list = user.email
 
         send_mail(subject, message, from_email, [recipient_list])
+
         return response
 
 
