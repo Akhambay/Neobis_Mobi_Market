@@ -11,22 +11,6 @@ from django.core.mail import send_mail
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 
-"""
-class EnterVerificationCodeView(generics.CreateAPIView):
-    queryset = CustomUser.objects.all()
-    serializer_class = CustomUserDetailsSerializer
-
-    def create(self, request, *args, **kwargs):
-        verification_code = request.data.get('verification_code')
-        user = get_object_or_404(
-            CustomUser, pk=self.request.user.pk, verification_code=verification_code)
-
-        user.user_verified = True
-        user.save()
-
-        return Response({'detail': 'Profile verified successfully.'}, status=status.HTTP_200_OK)
-"""
-
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -59,7 +43,7 @@ class CustomRegisterView(RegisterView):
         user.verification_code = verification_code
         user.save()
 
-        subject = 'Verify Your Email'
+        subject = 'Verify Your Email. Project 8'
         message = f'Your verification code is: {verification_code}'
         from_email = 'assyl.akhambay@gmail.com'
         recipient_list = user.email
