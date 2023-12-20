@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-3mp2nlaknemprs3nol06!gq82qmybs*ua3ko9ob+-@xbh!6a^o
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
 ALLOWED_HOSTS = ["*"]
 
 
@@ -63,12 +64,6 @@ AUTHENTICATION_CLASSES = [
 REST_USE_JWT = True
 
 REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': [
-        'rest_framework.renderers.JSONRenderer',
-    ],
-    'DEFAULT_PARSER_CLASSES': [
-        'rest_framework.parsers.JSONParser',
-    ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.AllowAny",
     ],
@@ -98,20 +93,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
-
 CORS_ORIGIN_WHITELIST = (
     "http://localhost:3000",
     "http://localhost:8000",
-    "https://pavel-backender.org.kg",
 )
-CORS_ORIGIN_ALLOW_ALL = True
 
-CORS_ALLOW_HEADERS = "*"
-
-
-CSRF_TRUSTED_ORIGINS = ["http://localhost:3000",
-                        "http://localhost:8000", "https://pavel-backender.org.kg"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
 
 ROOT_URLCONF = 'market_config.urls'
 
@@ -190,6 +177,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
+
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
