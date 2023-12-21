@@ -27,3 +27,13 @@ class UserProductListView(generics.ListAPIView):
 
     def get_queryset(self):
         return Product.objects.filter(author=self.request.user)
+
+
+class LikedProductListView(generics.ListAPIView):
+    serializer_class = ProductSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        author = self.request.user.id
+        queryset = Product.objects.filter(likes__id=author)
+        return queryset
