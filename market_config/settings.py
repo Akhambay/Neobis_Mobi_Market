@@ -83,9 +83,9 @@ SPECTACULAR_SETTINGS = {
 AUTH_USER_MODEL = "accounts.CustomUser"
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -97,9 +97,21 @@ CORS_ORIGIN_WHITELIST = (
     "http://localhost:3000",
     "http://localhost:8000",
     "https://pavel-backender.org.kg",
+    "http://localhost:5173",
 )
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:3000",
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "http://localhost:8000",
+    "https://pavel-backender.org.kg",
+]
+
+CORS_ALLOW_HEADERS = "*"
+
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000", "http://localhost:5173",
                         "http://localhost:8000", "https://pavel-backender.org.kg",]
 
 ROOT_URLCONF = 'market_config.urls'
