@@ -9,7 +9,7 @@ from allauth.account.utils import complete_signup
 from .models import CustomUser
 from django.core.mail import send_mail
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 
 @api_view(['POST'])
