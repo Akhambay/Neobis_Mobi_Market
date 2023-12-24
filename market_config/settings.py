@@ -47,7 +47,6 @@ INSTALLED_APPS = [
 
     "rest_framework",
     "corsheaders",
-    "rest_framework.authtoken",
     "dj_rest_auth",
     "allauth",
     "allauth.account",
@@ -55,11 +54,14 @@ INSTALLED_APPS = [
     "dj_rest_auth.registration",
     "drf_spectacular",
     'rest_framework_simplejwt',
+    # 'djangorestframework-simplejwt',
+    "rest_framework.authtoken",
 ]
 
 AUTHENTICATION_CLASSES = [
-    'dj_rest_auth.authentication.AllAuthJWTAuthentication',
-    'rest_framework_simplejwt.authentication.JWTAuthentication',
+    # 'dj_rest_auth.authentication.AllAuthJWTAuthentication',
+    # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+    'simplejwt.backends.JWTAuthentication',
 ]
 
 REST_USE_JWT = True
@@ -70,15 +72,16 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        "rest_framework.authentication.SessionAuthentication",
-        "rest_framework.authentication.TokenAuthentication",
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
     ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
+
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'ROTATE_REFRESH_TOKENS': False,
     'ALGORITHM': 'HS256',
     'SIGNING_KEY': SECRET_KEY,
@@ -92,7 +95,7 @@ SIMPLE_JWT = {
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "Mobi Market Project",
-    "DESCRIPTION": "A mobi market to learn about DRF",
+    "DESCRIPTION": "Project 8. A Mobi market to learn about DRF",
     "VERSION": "1.0.0",
 }
 
