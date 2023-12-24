@@ -14,7 +14,7 @@ class CustomUserDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ('pk', 'username', 'email', 'first_name',
-                  'last_name', 'DOB', 'phone_number', 'profile_image', 'token')
+                  'last_name', 'DOB', 'phone_number', 'profile_image', 'password', 'token')
 
     token = serializers.SerializerMethodField()
     password = serializers.CharField(write_only=True)
