@@ -20,6 +20,14 @@ class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
+    def perform_update(self, serializer):
+        existing_product_image = serializer.instance.product_image
+        serializer.save()
+
+        if 'product_image' not in self.request.data or not self.request.data['product_image']:
+            serializer.instance.product_image = existing_product_image
+            serializer.instance.save()
+
 
 class UserProductListView(generics.ListAPIView):
     serializer_class = ProductSerializer
