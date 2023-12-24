@@ -1,6 +1,6 @@
 from dj_rest_auth.registration.views import RegisterView
 from .serializers import CustomRegisterSerializer, CustomUserDetailsSerializer
-from rest_framework import status, generics
+from rest_framework import status, generics, permissions
 from rest_framework.response import Response
 from django.utils.crypto import get_random_string
 from django.shortcuts import get_object_or_404
@@ -56,6 +56,7 @@ class CustomRegisterView(RegisterView):
 class CustomUserDetailsView(generics.RetrieveUpdateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserDetailsSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
         return self.request.user
