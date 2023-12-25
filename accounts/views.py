@@ -60,3 +60,11 @@ class CustomUserDetailsView(generics.RetrieveUpdateAPIView):
 
     def get_object(self):
         return self.request.user
+
+    def perform_update(self, serializer):
+        existing_profile_image = serializer.instance.profile_image
+        serializer.save()
+
+        if 'profile_image' not in self.request.data or not self.request.data['profile_image']:
+            serializer.instance.profile_image = existing_profile_image
+            serializer.instance.save()
