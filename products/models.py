@@ -8,7 +8,7 @@ class Product(models.Model):
     description = models.TextField(max_length=300)
     price = models.PositiveIntegerField()
     product_image = models.ImageField(
-        null=True, blank=True, default='default_pic.jpg', upload_to='product_pics')
+        null=True, blank=True, default='/product_pics/default.jpg', upload_to='product_pics')
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     likes = models.ManyToManyField(
