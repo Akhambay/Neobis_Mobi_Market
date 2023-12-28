@@ -84,3 +84,9 @@ class ProductViewSet(viewsets.ModelViewSet):
             return Response({'status': 'Product unliked'}, status=status.HTTP_200_OK)
         else:
             return Response({'status': 'User did not like this product'}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=True, methods=['get'])
+    def likes_count(self, request, pk=None):
+        product = self.get_object()
+        count = product.total_likes()
+        return Response({'likes_count': count}, status=status.HTTP_200_OK)
