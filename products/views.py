@@ -1,13 +1,15 @@
-from rest_framework import generics, permissions, status
+from rest_framework import generics, status, viewsets
 from rest_framework.response import Response
 from .models import Product
 from .serializers import ProductSerializer
+from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
 
 
 class ProductCreateView(generics.CreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -40,7 +42,7 @@ class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class UserProductListView(generics.ListAPIView):
     serializer_class = ProductSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Product.objects.filter(author=self.request.user)
@@ -48,9 +50,37 @@ class UserProductListView(generics.ListAPIView):
 
 class LikedProductListView(generics.ListAPIView):
     serializer_class = ProductSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         author = self.request.user.id
         queryset = Product.objects.filter(likes__id=author)
         return queryset
+
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated]
+
+    @action(detail=True, methods=['post'])
+    def like(self, request, pk=None):
+        product = self.get_object()
+        user = request.user
+
+        if user not in product.likes.all():
+            product.likes.add(user)
+            return Response({'status': 'Product liked'}, status=status.HTTP_200_OK)
+        else:
+            return Response({'status': 'User already liked this product'}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=True, methods=['post'])
+    def unlike(self, request, pk=None):
+        product = self.get_object()
+        user = request.user
+
+        if user in product.likes.all():
+            product.likes.remove(user)
+            return Response({'status': 'Product unliked'}, status=status.HTTP_200_OK)
+        else:
+            return Response({'status': 'User did not like this product'}, status=status.HTTP_400_BAD_REQUEST)
