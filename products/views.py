@@ -12,6 +12,12 @@ class ProductCreateView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
+        user = request.user
+
+        if not user.user_verified:
+            return Response({'detail': 'User is not verified. Please verify your account.'},
+                            status=status.HTTP_403_FORBIDDEN)
+
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
