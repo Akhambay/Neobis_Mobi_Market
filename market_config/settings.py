@@ -117,6 +117,7 @@ CORS_ORIGIN_WHITELIST = (
     "http://localhost:8000",
     "https://pavel-backender.org.kg",
     "http://localhost:5173",
+    "https://neobis-front-marketplace-ten.vercel.app",
 )
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -126,12 +127,14 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:8000",
     "https://pavel-backender.org.kg",
+    "https://neobis-front-marketplace-ten.vercel.app",
 ]
 
 CORS_ALLOW_HEADERS = "*"
 
 CSRF_TRUSTED_ORIGINS = ["http://localhost:3000", "http://localhost:5173",
-                        "http://localhost:8000", "https://pavel-backender.org.kg",]
+                        "http://localhost:8000", "https://pavel-backender.org.kg",
+                        "https://neobis-front-marketplace-ten.vercel.app",]
 
 ROOT_URLCONF = 'market_config.urls'
 
